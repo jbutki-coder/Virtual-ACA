@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: virtual-aca
+    runtime: static
+    repo: https://github.com/jbutki-coder/Virtual-ACA
+    branch: main
+    buildCommand: npm test && npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
+    headers:
+      - path: /data/*
+        name: Cache-Control
+        value: public, max-age=300, must-revalidate
+      - path: /service-worker.js
+        name: Cache-Control
+        value: no-cache
